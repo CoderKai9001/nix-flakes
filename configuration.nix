@@ -88,6 +88,8 @@
    xclip
    bat
    nautilus # file manager, opened with Mod+E in niri
+   obsidian
+   zoxide
 ];
 environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
