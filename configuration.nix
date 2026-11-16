@@ -82,7 +82,7 @@
    xclip
    bat
 ];
-
+environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
   # niri (scrollable-tiling Wayland compositor) + Noctalia (shell/bar).
   # The niri module also sets up xdg portals and gnome-keyring, which
