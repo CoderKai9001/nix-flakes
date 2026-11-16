@@ -89,6 +89,11 @@
   # Noctalia uses as its Secret Service provider.
   programs.niri.enable = true;
 
+  programs.ssh.extraConfig = ''
+    AddKeysToAgent yes
+  '';
+  programs.git.enable = true;
+
   # Noctalia v5. The module comes from the noctalia flake input, imported in
   # flake.nix as noctalia.nixosModules.default.
   programs.noctalia = {
