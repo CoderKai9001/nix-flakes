@@ -28,7 +28,7 @@
       overlay = final: prev: {
         claude-code =
           (import nixpkgs-unstable {
-            inherit (prev) system;
+            system = prev.stdenv.hostPlatform.system;
             config.allowUnfree = true;
           }).claude-code;
       };

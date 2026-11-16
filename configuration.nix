@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -32,18 +32,23 @@
   time.timeZone = "Asia/Kolkata";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_IN";
+  i18n.defaultLocale = "en_IN.UTF-8";
+
+  # glibc names this locale "en_IN/UTF-8" (plain en_IN is already UTF-8), so
+  # build that one explicitly. The ".UTF-8" in LANG is what tells tmux and
+  # Claude Code that Unicode works.
+  i18n.supportedLocales = [ "C.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" "en_IN/UTF-8" ];
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IN";
-    LC_IDENTIFICATION = "en_IN";
-    LC_MEASUREMENT = "en_IN";
-    LC_MONETARY = "en_IN";
-    LC_NAME = "en_IN";
-    LC_NUMERIC = "en_IN";
-    LC_PAPER = "en_IN";
-    LC_TELEPHONE = "en_IN";
-    LC_TIME = "en_IN";
+    LC_ADDRESS = "en_IN.UTF-8";
+    LC_IDENTIFICATION = "en_IN.UTF-8";
+    LC_MEASUREMENT = "en_IN.UTF-8";
+    LC_MONETARY = "en_IN.UTF-8";
+    LC_NAME = "en_IN.UTF-8";
+    LC_NUMERIC = "en_IN.UTF-8";
+    LC_PAPER = "en_IN.UTF-8";
+    LC_TELEPHONE = "en_IN.UTF-8";
+    LC_TIME = "en_IN.UTF-8";
   };
 
   # Configure keymap in X11
@@ -58,6 +63,7 @@
     description = "Aditya";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -81,6 +87,7 @@
    tealdeer
    xclip
    bat
+   nautilus # file manager, opened with Mod+E in niri
 ];
 environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
@@ -93,6 +100,14 @@ environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
     AddKeysToAgent yes
   '';
   programs.git.enable = true;
+
+  # zsh as login shell (also adds it to /etc/shells and sets up completion)
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
 
   # Noctalia v5. The module comes from the noctalia flake input, imported in
   # flake.nix as noctalia.nixosModules.default.
