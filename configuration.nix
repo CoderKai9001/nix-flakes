@@ -90,6 +90,7 @@
    nautilus # file manager, opened with Mod+E in niri
    obsidian
    zoxide
+   yazi
 ];
 environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
