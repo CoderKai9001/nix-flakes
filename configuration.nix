@@ -95,6 +95,7 @@
    zip
    unzip
    lean4
+   spotify
 ];
 environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
