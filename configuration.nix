@@ -91,6 +91,10 @@
    obsidian
    zoxide
    yazi
+   sioyek
+   zip
+   unzip
+   lean4
 ];
 environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
   # ---------------------------------------------------------------- desktop
@@ -126,6 +130,16 @@ environment.sessionVariables.DISABLE_AUTOUPDATER = "1";
     # services Noctalia's bar and control-center widgets talk to.
     recommendedServices.enable = true;
   };
+
+  # Fingerprint reader (Goodix 27c6:659a, supported by stock libfprint).
+  # Noctalia's lock screen talks to fprintd directly (Settings > Lock screen >
+  # Fingerprint Unlock), so it doesn't need pam_fprintd.
+  services.fprintd.enable = true;
+  # fprintd turns on fingerprint auth for every PAM service by default. Noctalia
+  # checks passwords through "login", where pam_fprintd would make the password
+  # box wait for a finger first, so keep "login" password-only. sudo, polkit,
+  # etc. still accept a fingerprint.
+  security.pam.services.login.fprintAuth = false;
 
   # Boot straight into niri with no password prompt (initial_session).
   # Later logins -- after you log out of niri -- get the tuigreet prompt
